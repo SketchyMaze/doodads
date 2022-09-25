@@ -74,6 +74,10 @@ objects() {
 	cd regions/
 	make
 	cd ..
+
+	# cd test/
+	# make
+	# cd ..
 }
 
 onoff() {
