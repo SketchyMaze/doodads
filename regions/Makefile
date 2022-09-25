@@ -23,6 +23,10 @@ build:
 	doodad convert -t "Power Source" power-64.png power-source.doodad
 	doodad install-script power.js power-source.doodad
 
+	# Look At Me
+	doodad convert -t "Look At Me" camera-focus.png camera-focus.doodad
+	doodad install-script camera-focus.js camera-focus.doodad
+
 	# Warp Door
 	doodad convert -t "Invisible Warp Door" warp-door-64.png reg-warp-door.doodad
 	doodad edit-doodad --tag "color=invisible" reg-warp-door.doodad

@@ -14,6 +14,7 @@ function main() {
         let nowAt = Self.Position();
         if (nowAt.Y > lastPoint.Y) {
             falling = true;
+            Self.CameraFollowMe();
         } else {
             falling = false;
         }
