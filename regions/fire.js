@@ -1,4 +1,6 @@
-// Goal Region.
+// Fire Region
+const name = Self.GetOption("name");
+
 function main() {
     Self.Hide();
 
@@ -13,7 +15,7 @@ function main() {
         }
 
         if (e.InHitbox) {
-            FailLevel("You have died!");
+            FailLevel(`Watch out for ${name}!`);
         }
     });
 }

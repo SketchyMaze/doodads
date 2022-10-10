@@ -1,7 +1,17 @@
-// Colored Locked Doors.
+/*
+Colored Locked Doors
+
+This script handles the blue, green, red, yellow and small-key doors.
+
+Each door has a corresponding key that will unlock it. Small Key doors consume a
+small key when unlocked for the first time.
+
+Options: "unlocked" can make the door unlocked by default when the level begins.
+*/
 
 const color = Self.GetTag("color"),
-	keyname = color === "small" ? "small-key.doodad" : "key-" + color + ".doodad";
+	keyname = color === "small" ? "small-key.doodad" : "key-" + color + ".doodad",
+	isUnlocked = Self.GetOption("unlocked");
 
 function main() {
 	// Layers in the doodad image.
@@ -18,6 +28,12 @@ function main() {
 	let enterSide = 0;     // Side of player entering the door, -1 or 1, left or right.
 
 	Self.SetHitbox(34, 0, 13, 76);
+
+	// Options: door is unlocked at level start?
+	if (isUnlocked) {
+		unlocked = true;
+		Self.ShowLayer(layer.unlocked);
+	}
 
 	Events.OnCollide((e) => {
 		// Record the side that this actor has touched us, in case the door

@@ -1,11 +1,14 @@
 // Gem stone collectibles/keys.
 
 const color = Self.GetTag("color"),
-    shimmerFreq = 1000;
+    shimmerFreq = 1000,
+	hasGravity = Self.GetOption("has gravity") === true;
 
 function main() {
-	Self.SetMobile(true);
-	Self.SetGravity(true);
+	if (hasGravity) {
+		Self.SetMobile(true);
+		Self.SetGravity(true);
+	}
 
     Self.AddAnimation("shimmer", 100, [0, 1, 2, 3, 0]);
 	Events.OnCollide((e) => {

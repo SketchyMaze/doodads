@@ -1,7 +1,18 @@
-// Warp Doors
+/*
+Warp Doors
+
+Link it to another Warp Door and the player can travel between them.
+
+Doors without links will behave as 'locked' doors and cannot be opened.
+
+Options: "locked (exit only)" bool will make the door behave as locked
+even if linked - it can be an exit-only door that the player can come
+out of but can not open.
+*/
 
 const color = Self.GetTag("color"),
-	isStateDoor = color === 'blue' || color === 'orange';
+	isStateDoor = color === 'blue' || color === 'orange',
+	isLocked = Self.GetOption("locked (exit only)") === true;
 
 // State in case we're a blue warp door.
 let state = color === 'blue',
@@ -63,7 +74,7 @@ function main() {
 		}
 
 		// Doors without linked exits are not usable.
-		if (linkedDoor === null) {
+		if (linkedDoor === null || isLocked) {
 			if (!flashedCooldown) {
 				Flash("This door is locked.");
 				flashedCooldown = true;

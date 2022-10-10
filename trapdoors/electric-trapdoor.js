@@ -3,7 +3,7 @@
 var animationSpeed = 100,
     spriteWidth = 114,
     thickness = 7,
-    isOpen = false,
+    isOpen = Self.GetOption("opened") === true,
     animating = false,
     powerState = false;
 
@@ -12,6 +12,12 @@ function main() {
 
     Self.AddAnimation("open", animationSpeed, [0, 1, 2, 3]);
     Self.AddAnimation("close", animationSpeed, [3, 2, 1, 0]);
+
+    // Options: if the player marked it "opened" make it open by default.
+    if (isOpen) {
+        Self.ShowLayer(3);
+        powerState = true;
+    }
 
     // Subscribe to Switches and other power sources. Note: if a
     // switch toggles us, we ignore the immediately following

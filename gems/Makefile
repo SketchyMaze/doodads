@@ -55,4 +55,15 @@ build:
 		doodad edit-doodad --tag "category=doors" $${i};\
 	done
 
+	# Gemstones have gravity by default, but make it configurable.
+	doodad edit-doodad -q --option "has gravity=bool=true" gem-green.doodad
+	doodad edit-doodad -q --option "has gravity=bool=true" gem-yellow.doodad
+	doodad edit-doodad -q --option "has gravity=bool=true" gem-red.doodad
+	doodad edit-doodad -q --option "has gravity=bool=true" gem-blue.doodad
+
+	# Totems have an option to mark them unlocked by default.
+	for i in gem-totem-*.doodad; do\
+		doodad edit-doodad -q --option "has gemstone=bool" $${i};\
+	done
+
 	cp *.doodad ../../../assets/doodads/

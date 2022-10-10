@@ -43,7 +43,22 @@ doodad edit-doodad -q --tag color=small small-key.doodad
 doodad install-script keys.js small-key.doodad
 
 doodad convert -t "Electric Door" electric{1,2,3,4}.png door-electric.doodad
+doodad edit-doodad -q --option "opened=bool" door-electric.doodad
 doodad install-script electric-door.js door-electric.doodad
+
+# All locked doors have an option to unlock.
+doodad edit-doodad -q --option "unlocked=bool" door-green.doodad
+doodad edit-doodad -q --option "unlocked=bool" door-blue.doodad
+doodad edit-doodad -q --option "unlocked=bool" door-yellow.doodad
+doodad edit-doodad -q --option "unlocked=bool" door-red.doodad
+doodad edit-doodad -q --option "unlocked=bool" small-key-door.doodad
+
+# All keys may be subject to gravity.
+doodad edit-doodad -q --option "has gravity=bool" key-green.doodad
+doodad edit-doodad -q --option "has gravity=bool" key-blue.doodad
+doodad edit-doodad -q --option "has gravity=bool" key-yellow.doodad
+doodad edit-doodad -q --option "has gravity=bool" key-red.doodad
+doodad edit-doodad -q --option "has gravity=bool" small-key.doodad
 
 # Tag the category for these doodads
 for i in *.doodad; do doodad edit-doodad --tag "category=doors" $i; done

@@ -29,6 +29,6 @@ build:
 	# Build the Electric Trapdoor.
 	doodad convert -t "Electric Trapdoor" electric{1,2,3,4}.png electric-trapdoor.doodad
 	doodad install-script electric-trapdoor.js electric-trapdoor.doodad
-	doodad edit-doodad -q --tag "category=doors,gizmos" electric-trapdoor.doodad
+	doodad edit-doodad -q --tag "category=doors,gizmos" --option "opened=bool" electric-trapdoor.doodad
 
 	cp *.doodad ../../../assets/doodads/

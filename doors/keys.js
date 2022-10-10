@@ -1,9 +1,19 @@
-// Colored Keys and Small Key
+/*
+Colored Keys and Small Key
+
+Options: "has gravity" will make the key subject to gravity.
+*/
 
 const color = Self.GetTag("color"),
-	quantity = color === "small" ? 1 : 0;
+	quantity = color === "small" ? 1 : 0,
+	hasGravity = Self.GetOption("has gravity") === true;
 
 function main() {
+	if (hasGravity) {
+		Self.SetGravity(hasGravity);
+		Self.SetMobile(true);
+	}
+
 	Events.OnCollide((e) => {
 		if (e.Settled) {
 			if (e.Actor.HasInventory()) {

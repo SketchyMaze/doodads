@@ -20,7 +20,8 @@ let color = Self.GetTag("color"),
     activated = false,
     linkedReceiver = false, // is linked to a non-totem which might want power
     totems = {}, // linked totems
-    shimmerFreq = 1000;
+    shimmerFreq = 1000,
+    isUnlocked = Self.GetOption("has gemstone") === true;
 
 function main() {
     // Show the hollow socket on level load (last layer)
@@ -38,6 +39,12 @@ function main() {
     // Shimmer animation is just like the gemstones: first 4 frames
     // are the filled socket sprites.
     Self.AddAnimation("shimmer", 100, [0, 1, 2, 3, 0]);
+
+    // Options: if it already has its gemstone, set its state accordingly.
+    if (isUnlocked) {
+        activated = true;
+        Self.ShowLayer(0);
+    }
 
 	Events.OnCollide((e) => {
         if (activated) return;

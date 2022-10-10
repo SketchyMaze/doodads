@@ -13,6 +13,7 @@ build:
 	# Fire Region
 	doodad convert -t "Fire Region" fire-128.png reg-fire.doodad
 	doodad install-script fire.js reg-fire.doodad
+	doodad edit-doodad -q --option "name=str=fire" reg-fire.doodad
 
 	# Stall Region
 	doodad convert -t "Stall Player (250ms)" stall-128.png reg-stall-250.doodad
@@ -29,7 +30,7 @@ build:
 
 	# Warp Door
 	doodad convert -t "Invisible Warp Door" warp-door-64.png reg-warp-door.doodad
-	doodad edit-doodad --tag "color=invisible" reg-warp-door.doodad
+	doodad edit-doodad --tag "color=invisible" --option "locked (exit only)=bool" reg-warp-door.doodad
 	doodad install-script ../warp-door/warp-door.js reg-warp-door.doodad
 
 	# Reset Level Timer
