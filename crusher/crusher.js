@@ -156,7 +156,7 @@ function main() {
 
                 // Landed?
                 if (point.Y === lastAltitude) {
-                    Sound.Play("crumbly-break.wav")
+                    Sound.Play("crumbly-break.mp3")
                     state = states.hit;
                     Self.PlayAnimation("hit", () => {
                         state = states.rising;

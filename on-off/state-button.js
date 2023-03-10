@@ -31,6 +31,7 @@ function main() {
 
 			colliding = true;
 			state = !state;
+			Sound.Play(state ? "activate.mp3" : "deactivate.mp3");
 			Message.Broadcast("broadcast:state-change", state);
 
 			showSprite();

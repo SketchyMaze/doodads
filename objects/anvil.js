@@ -31,13 +31,13 @@ function main() {
             if (e.InHitbox) {
                 if (e.Actor.IsPlayer()) {
                     // Fatal to the player.
-                    Sound.Play("crumbly-break.wav");
+                    Sound.Play("cling.mp3");
                     FailLevel("Watch out for anvils!");
                     return;
                 }
                 else if (e.Actor.IsMobile() && !e.Actor.Invulnerable()) {
                     // Destroy mobile doodads.
-                    Sound.Play("crumbly-break.wav");
+                    Sound.Play("cling.mp3");
                     e.Actor.Destroy();
                 }
             }

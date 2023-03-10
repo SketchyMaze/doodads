@@ -42,6 +42,11 @@ function main() {
 		return player();
 	}
 
+	// No A.I.?
+	if (Self.GetOption("No A.I.") === true) {
+		return;
+	}
+
 	Events.OnCollide((e) => {
 		// If we're diving and we hit the player, game over!
 		if (e.Settled && state === states.diving && e.Actor.IsPlayer()) {
@@ -80,6 +85,11 @@ function main() {
 			lastSampled = curP
 		}
 		sampleTick++;
+
+		// Play the bird flap sound if we are on screen.
+		if (Self.IsOnScreen()) {
+			Sound.Play("bird-fly.mp3");
+		}
 
 		// Are we diving?
 		if (state === states.diving) {
@@ -161,6 +171,7 @@ function AI_ScanForPlayer() {
 		scanY += stepY;
 		for (let actor of Actors.At(Point(scanX, scanY))) {
 			if (actor.IsPlayer() && actor.HasGravity()) {
+				Sound.Play("bird-dive.mp3");
 				state = states.diving;
 				return;
 			}
@@ -233,10 +244,12 @@ function player() {
 		if (ev.Down && ev.Right && falling) {
 			Self.StopAnimation();
 			Self.ShowLayerNamed("dive-right");
+			Sound.Play("bird-dive.mp3");
 			diving = falling;
 		} else if (ev.Down && ev.Left && falling) {
 			Self.StopAnimation();
 			Self.ShowLayerNamed("dive-left");
+			Sound.Play("bird-dive.mp3");
 			diving = falling;
 		} else if (ev.Right) {
 			// Fly right.
@@ -260,6 +273,10 @@ function player() {
 			diving = false;
 		}
 
+		if (!diving) {
+			Sound.Play("bird-fly.mp3");
+		}
+
 		// Player is invulnerable while diving.
 		Self.SetInvulnerable(diving);
 	});
@@ -267,7 +284,7 @@ function player() {
 	Events.OnCollide((e) => {
 		// If the player is diving at an enemy mob, destroy it.
 		if (diving && e.Settled && e.Actor.IsMobile() && !e.Actor.Invulnerable()) {
-			Sound.Play("crumbly-break.wav");
+			Sound.Play("crumbly-break.mp3");
 			e.Actor.Destroy();
 		}
 	});

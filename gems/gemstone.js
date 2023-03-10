@@ -14,7 +14,9 @@ function main() {
 	Events.OnCollide((e) => {
 		if (e.Settled) {
 			if (e.Actor.HasInventory()) {
-				Sound.Play("item-get.wav")
+				if (Self.IsOnScreen()) {
+					Sound.Play("coin-drop.mp3")
+				}
 				e.Actor.AddItem(Self.Filename, 1);
 				Self.Destroy();
 			}

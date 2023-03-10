@@ -18,7 +18,7 @@ function main() {
 		}
 
 		if (collide === false) {
-			Sound.Play("button-down.wav")
+			Sound.Play("button.mp3")
 			state = !state;
 
 			Message.Publish("switch:toggle", state);

@@ -6,7 +6,7 @@ function main() {
 		if (powered && pressed) {
 			Self.ShowLayer(0);
 			pressed = false;
-			Sound.Play("button-up.wav")
+			Sound.Play("button-up.mp3")
 			Message.Publish("power", false);
 			Message.Publish("sticky:down", false);
 		}
@@ -26,7 +26,7 @@ function main() {
 			return;
 		}
 
-		Sound.Play("button-down.wav")
+		Sound.Play("button-down.mp3")
 		Self.ShowLayer(1);
 		pressed = true;
 		Message.Publish("power", true);

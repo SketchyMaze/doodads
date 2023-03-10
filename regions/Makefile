@@ -20,6 +20,10 @@ build:
 	doodad edit-doodad --tag "ms=250" reg-stall-250.doodad
 	doodad install-script stall.js reg-stall-250.doodad
 
+	# Solid Region
+	doodad convert -t "Solid Barrier" solid-64.png reg-solid-64.doodad
+	doodad install-script solid.js reg-solid-64.doodad
+
 	# Power Source
 	doodad convert -t "Power Source" power-64.png power-source.doodad
 	doodad install-script power.js power-source.doodad

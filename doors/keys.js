@@ -23,7 +23,9 @@ function main() {
 					return;
 				}
 
-				Sound.Play("item-get.wav")
+				if (Self.IsOnScreen()) {
+					Sound.Play("item-get.mp3")
+				}
 				e.Actor.AddItem(Self.Filename, quantity);
 				Self.Destroy();
 			}

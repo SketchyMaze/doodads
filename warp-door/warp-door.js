@@ -131,6 +131,7 @@ function main() {
 
 			// Play the open and close animation.
 			animating = true;
+			Sound.Play("door-opening.mp3");
 			Self.PlayAnimation("open", () => {
 				e.Actor.Hide()
 				Self.PlayAnimation("close", () => {

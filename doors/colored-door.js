@@ -50,7 +50,9 @@ function main() {
 			if (unlocked) {
 				Self.ShowLayer(enterSide < 0 ? layer.right : layer.left);
 				opened = true;
-				Sound.Play("door-open.wav")
+				if (Self.IsOnScreen()) {
+					Sound.Play("door-open.mp3");
+				}
 				return;
 			}
 
@@ -64,7 +66,9 @@ function main() {
 			if (e.Settled) {
 				unlocked = true;
 				Self.ShowLayer(enterSide < 0 ? layer.right : layer.left);
-				Sound.Play("unlock.wav");
+				if (Self.IsOnScreen()) {
+					Sound.Play("unlock.mp3");
+				}
 
 				// If a Small Key door, consume a small key.
 				if (color === "small") {
@@ -75,7 +79,7 @@ function main() {
 	});
 	Events.OnLeave((e) => {
 		Self.ShowLayer(unlocked ? layer.unlocked : layer.closed);
-		// Sound.Play("door-close.wav")
+		// Sound.Play("door-close.mp3")
 
 		// Reset collision state.
 		opened = false;

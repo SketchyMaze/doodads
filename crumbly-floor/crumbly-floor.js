@@ -37,10 +37,11 @@ function main() {
 			// Begin the animation sequence if we're in the solid state.
 			if (state === stateSolid) {
 				state = stateShaking;
+				Sound.Play("crumbly-rumble.mp3");
 				Self.PlayAnimation("shake", () => {
 					state = stateFalling;
 					Self.PlayAnimation("fall", () => {
-						Sound.Play("crumbly-break.wav")
+						Sound.Play("crumbly-break.mp3")
 						state = stateFallen;
 						Self.ShowLayerNamed("fallen");
 

@@ -53,11 +53,13 @@ function stealable() {
 
             // If the player lost their items, notify them.
             if (victim.IsPlayer() && stolen > 0) {
+                Sound.Play("laugh.mp3");
                 Flash("Watch out for thieves! %d item%s stolen!", parseInt(stolen), stolen === 1 ? ' was' : 's were');
             }
 
             // If the Thief IS the player, notify your earnings.
             if (Self.IsPlayer() && stolen > 0) {
+                Sound.Play("laugh.mp3");
                 Flash("Awesome! Stole %d item%s from the %s!", parseInt(stolen), stolen === 1 ? '' : 's', e.Actor.Drawing.Doodad.Title);
             }
         }

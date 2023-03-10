@@ -33,7 +33,7 @@ function main() {
 		}
 
 		if (!pressed && !stickyDown) {
-			Sound.Play("button-down.wav")
+			Sound.Play("button-down.mp3")
 			Message.Publish("power", true);
 			pressed = true;
 		}
@@ -50,7 +50,7 @@ function main() {
 		delete colliders[e.Actor.ID()];
 
 		if (Object.keys(colliders).length === 0 && !stickyDown) {
-			Sound.Play("button-up.wav")
+			Sound.Play("button-up.mp3")
 			Self.ShowLayer(0);
 			Message.Publish("power", false);
 			timer = 0;

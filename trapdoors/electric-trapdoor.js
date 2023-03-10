@@ -52,6 +52,7 @@ function setPoweredState(powered) {
         }
 
         animating = true;
+        Sound.Play("gears.mp3");
         Self.PlayAnimation("open", function () {
             isOpen = true;
             animating = false;
@@ -63,6 +64,7 @@ function setPoweredState(powered) {
         });
     } else {
         animating = true;
+        Sound.Play("gears.mp3");
         Self.PlayAnimation("close", function () {
             isOpen = false;
             animating = false;

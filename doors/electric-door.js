@@ -23,13 +23,13 @@ function setPoweredState(powered) {
 
 		animating = true;
 		opened = true;
-		Sound.Play("electric-door.wav")
+		Sound.Play("electric-door.mp3")
 		Self.PlayAnimation("open", () => {
 			animating = false;
 		});
 	} else {
 		animating = true;
-		Sound.Play("electric-door.wav")
+		Sound.Play("electric-door.mp3")
 		Self.PlayAnimation("close", () => {
 			opened = false;
 			animating = false;
