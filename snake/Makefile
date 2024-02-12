@@ -10,6 +10,7 @@ build:
 	# Tag the category for these doodads
 	for i in *.doodad; do\
 		doodad edit-doodad --tag "category=creatures" $${i};\
+		doodad edit-doodad -q --option "No A.I.=bool" $${i};\
 	done
 
 	cp *.doodad ../../../assets/doodads/

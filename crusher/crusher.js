@@ -17,8 +17,8 @@ let direction = "left",
     fallRadius = 120,   // player distance before it drops
     helmetThickness = 48, // safe solid hitbox height
     fireThickness = 12,   // dangerous bottom thickness
-    targetAltitude = Self.Position()
-    lastAltitude = targetAltitude.Y
+    targetAltitude = Self.Position(),
+    lastAltitude = targetAltitude.Y,
     size = Self.Size();
 
 const states = {
@@ -32,25 +32,30 @@ const states = {
 let state = states.idle;
 
 function main() {
-	Self.SetMobile(true);
+    Self.SetMobile(true);
     Self.SetGravity(false);
     Self.SetInvulnerable(true);
-	Self.SetHitbox(5, 2, 90, 73);
+    Self.SetHitbox(5, 2, 90, 73);
     Self.AddAnimation("hit", 50,
         ["angry", "ouch", "angry", "angry", "angry", "angry",
-         "sleep", "sleep", "sleep", "sleep", "sleep", "sleep",
-         "sleep", "sleep", "sleep", "sleep", "sleep", "sleep",
-         "sleep", "sleep", "sleep", "sleep", "sleep", "sleep"],
+            "sleep", "sleep", "sleep", "sleep", "sleep", "sleep",
+            "sleep", "sleep", "sleep", "sleep", "sleep", "sleep",
+            "sleep", "sleep", "sleep", "sleep", "sleep", "sleep"],
     )
 
-	// Player Character controls?
-	if (Self.IsPlayer()) {
-		return player();
-	}
+    // Player Character controls?
+    if (Self.IsPlayer()) {
+        return player();
+    }
+
+    // No A.I.?
+    if (Self.GetOption("No A.I.") === true) {
+        return;
+    }
 
     let hitbox = Self.Hitbox();
 
-	Events.OnCollide((e) => {
+    Events.OnCollide((e) => {
         // The bottom is deadly if falling.
         if (state === states.falling || state === states.hit && e.Settled) {
             if (e.Actor.IsMobile() && e.InHitbox && !e.Actor.Invulnerable()) {
@@ -85,10 +90,10 @@ function main() {
                 return false;
             }
         }
-	});
+    });
 
-	setInterval(() => {
-		// Find the player.
+    setInterval(() => {
+        // Find the player.
         let player = Actors.FindPlayer(),
             playerPoint = player.Position(),
             point = Self.Position(),
@@ -99,11 +104,11 @@ function main() {
         // Face the player.
         if (playerPoint.X < point.X + (size.W / 2)) {
             direction = "left";
-            delta = Math.abs(playerPoint.X - (point.X + (size.W/2)));
+            delta = Math.abs(playerPoint.X - (point.X + (size.W / 2)));
         }
         else if (playerPoint.X > point.X + (size.W / 2)) {
             direction = "right";
-            delta = Math.abs(playerPoint.X - (point.X + (size.W/2)));
+            delta = Math.abs(playerPoint.X - (point.X + (size.W / 2)));
         }
 
         if (delta < watchRadius) {
@@ -119,7 +124,7 @@ function main() {
         switch (state) {
             case states.idle:
                 if (nearby) {
-                    Self.ShowLayerNamed("peek-"+direction);
+                    Self.ShowLayerNamed("peek-" + direction);
                 } else {
                     Self.ShowLayerNamed("sleep");
                 }
@@ -133,7 +138,7 @@ function main() {
                 break;
             case states.peeking:
                 if (nearby) {
-                    Self.ShowLayerNamed("peek-"+direction);
+                    Self.ShowLayerNamed("peek-" + direction);
                 } else {
                     state = states.idle;
                     break;
@@ -172,7 +177,7 @@ function main() {
                 Self.SetVelocity(Vector(0, -riseSpeed));
 
                 point = Self.Position();
-                if (point.Y <= targetAltitude.Y+4 || point.Y === lastAltitude.Y) {
+                if (point.Y <= targetAltitude.Y + 4 || point.Y === lastAltitude.Y) {
                     Self.MoveTo(targetAltitude);
                     Self.SetVelocity(Vector(0, 0))
                     state = states.idle;
@@ -180,17 +185,17 @@ function main() {
         }
 
         lastAltitude = point.Y;
-	}, 100);
+    }, 100);
 }
 
 // If under control of the player character.
 function player() {
-	Events.OnKeypress((ev) => {
-		if (ev.Right) {
-			direction = "right";
-		} else if (ev.Left) {
-			direction = "left";
-		}
+    Events.OnKeypress((ev) => {
+        if (ev.Right) {
+            direction = "right";
+        } else if (ev.Left) {
+            direction = "left";
+        }
 
         // Jump!
         if (ev.Down) {
@@ -199,9 +204,9 @@ function player() {
         } else if (ev.Right && ev.Left) {
             Self.ShowLayerNamed("ouch");
         } else if (ev.Right || ev.Left) {
-            Self.ShowLayerNamed("peek-"+direction);
+            Self.ShowLayerNamed("peek-" + direction);
         } else {
             Self.ShowLayerNamed("sleep");
         }
-	});
+    });
 }

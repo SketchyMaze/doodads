@@ -15,6 +15,12 @@ function main() {
     if (Self.IsPlayer()) {
         return playable();
     }
+
+    // No A.I.?
+    if (Self.GetOption("No A.I.") === true) {
+        return;
+    }
+
     return ai();
 }
 

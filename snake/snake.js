@@ -21,34 +21,39 @@ const states = {
 let state = states.idle;
 
 function main() {
-	Self.SetMobile(true);
-	Self.SetGravity(true);
-	Self.SetHitbox(20, 0, 28, 58);
-	Self.AddAnimation("idle-left", 100, ["left-1", "left-2", "left-3", "left-2"]);
-	Self.AddAnimation("idle-right", 100, ["right-1", "right-2", "right-3", "right-2"]);
+    Self.SetMobile(true);
+    Self.SetGravity(true);
+    Self.SetHitbox(20, 0, 28, 58);
+    Self.AddAnimation("idle-left", 100, ["left-1", "left-2", "left-3", "left-2"]);
+    Self.AddAnimation("idle-right", 100, ["right-1", "right-2", "right-3", "right-2"]);
     Self.AddAnimation("attack-left", 100, ["attack-left-1", "attack-left-2", "attack-left-3"])
     Self.AddAnimation("attack-right", 100, ["attack-right-1", "attack-right-2", "attack-right-3"])
 
-	// Player Character controls?
-	if (Self.IsPlayer()) {
-		return player();
-	}
+    // Player Character controls?
+    if (Self.IsPlayer()) {
+        return player();
+    }
 
-	Events.OnCollide((e) => {
-		// The snake is deadly to the touch.
-		if (e.Settled && e.Actor.IsPlayer() && e.InHitbox) {
+    // No A.I.?
+    if (Self.GetOption("No A.I.") === true) {
+        return;
+    }
+
+    Events.OnCollide((e) => {
+        // The snake is deadly to the touch.
+        if (e.Settled && e.Actor.IsPlayer() && e.InHitbox) {
             // Friendly to fellow snakes.
             if (e.Actor.Doodad().Filename.indexOf("snake") > -1) {
                 return;
             }
 
-			FailLevel("Watch out for snakes!");
-			return;
-		}
-	});
+            FailLevel("Watch out for snakes!");
+            return;
+        }
+    });
 
-	setInterval(() => {
-		// Find the player.
+    setInterval(() => {
+        // Find the player.
         let player = Actors.FindPlayer(),
             playerPoint = player.Position(),
             point = Self.Position(),
@@ -58,11 +63,11 @@ function main() {
         // Face the player.
         if (playerPoint.X < point.X + (size.W / 2)) {
             direction = "left";
-            delta = Math.abs(playerPoint.X - (point.X + (size.W/2)));
+            delta = Math.abs(playerPoint.X - (point.X + (size.W / 2)));
         }
         else if (playerPoint.X > point.X + (size.W / 2)) {
             direction = "right";
-            delta = Math.abs(playerPoint.X - (point.X + (size.W/2)));
+            delta = Math.abs(playerPoint.X - (point.X + (size.W / 2)));
         }
 
         if (delta < watchRadius) {
@@ -71,13 +76,13 @@ function main() {
 
         // If we are idle and the player is jumping nearby...
         if (state == states.idle && nearby && Self.Grounded()) {
-            if (playerPoint.Y - point.Y+(size.H/2) < 20) {
+            if (playerPoint.Y - point.Y + (size.H / 2) < 20) {
                 // Enter attack state.
                 if (time.Since(jumpCooldownStart) > 500 * time.Millisecond) {
                     state = states.attacking;
                     Self.SetVelocity(Vector(0, -jumpSpeed));
                     Self.StopAnimation();
-                    Self.PlayAnimation("attack-"+direction, null);
+                    Self.PlayAnimation("attack-" + direction, null);
                     return;
                 }
             }
@@ -90,42 +95,42 @@ function main() {
             Self.StopAnimation();
         }
 
-		// Ensure that the animations are always rolling.
+        // Ensure that the animations are always rolling.
         if (state === states.idle && !Self.IsAnimating()) {
-            Self.PlayAnimation("idle-"+direction, null);
+            Self.PlayAnimation("idle-" + direction, null);
         }
-	}, 100);
+    }, 100);
 }
 
 // If under control of the player character.
 function player() {
-	let jumping = false;
+    let jumping = false;
 
-	Events.OnKeypress((ev) => {
-		Vx = 0;
-		Vy = 0;
+    Events.OnKeypress((ev) => {
+        Vx = 0;
+        Vy = 0;
 
-		if (ev.Right) {
-			direction = "right";
-		} else if (ev.Left) {
-			direction = "left";
-		}
+        if (ev.Right) {
+            direction = "right";
+        } else if (ev.Left) {
+            direction = "left";
+        }
 
         // Jump!
         if (ev.Up && !jumping) {
             Self.StopAnimation();
-            Self.PlayAnimation("attack-"+direction, null);
+            Self.PlayAnimation("attack-" + direction, null);
             jumping = true;
             return;
         }
 
-		if (jumping && Self.Grounded()) {
+        if (jumping && Self.Grounded()) {
             Self.StopAnimation();
             jumping = false;
         }
 
         if (!jumping && !Self.IsAnimating()) {
-            Self.PlayAnimation("idle-"+direction, null);
+            Self.PlayAnimation("idle-" + direction, null);
         }
-	});
+    });
 }

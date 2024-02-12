@@ -5,7 +5,7 @@ var playerSpeed = color === 'blue' ? 2 : 4,
 	swimSpeed = playerSpeed * 0.4,
 	aggroX = 250,  // X/Y distance sensitivity from player
 	aggroY = color === 'blue' ? 100 : 200,
-	jumpSpeed = color === 'blue' ? 14 : 18,
+	jumpSpeed = color === 'blue' ? 10 : 11,
 	swimJumpSpeed = jumpSpeed * 0.4,
 	animating = false,
 	direction = "right",
@@ -15,9 +15,9 @@ var playerSpeed = color === 'blue' ? 2 : 4,
 if (color === 'white') {
 	aggroX = 1000;
 	aggroY = 400;
-	playerSpeed = 8;
+	playerSpeed = 5;
 	swimSpeed = playerSpeed * 0.4;
-	jumpSpeed = 20;
+	jumpSpeed = 12;
 	swimJumpSpeed = jumpSpeed * 0.4;
 }
 
@@ -32,8 +32,6 @@ function setupAnimations(color) {
 }
 
 function main() {
-	playerSpeed = color === 'blue' ? 2 : 4;
-
 	let swimJumpCooldownTick = 0, // minimum Game Tick before we can jump while swimming
 		swimJumpCooldown = 10;    // CONFIG: delta of ticks between jumps while swimming
 
@@ -45,6 +43,11 @@ function main() {
 
 	if (Self.IsPlayer()) {
 		return playerControls();
+	}
+
+	// No A.I.?
+	if (Self.GetOption("No A.I.") === true) {
+		return;
 	}
 
 	// A.I. pattern: walks back and forth, turning around
